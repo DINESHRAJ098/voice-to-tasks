@@ -79,7 +79,6 @@
 }
 
 /* Premium dark theme: deep navy, electric indigo primary, cyan accents, violet highlights */
-html,
 .dark {
   color-scheme: dark;
   --background: oklch(0.1 0.015 270);
