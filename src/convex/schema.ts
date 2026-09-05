@@ -1,43 +1,67 @@
 import { authTables } from "@convex-dev/auth/server";
 import { defineSchema, defineTable } from "convex/server";
-import { Infer, v } from "convex/values";
-
-// default user roles. can add / remove based on the project as needed
-export const ROLES = {
-  ADMIN: "admin",
-  USER: "user",
-  MEMBER: "member",
-} as const;
-
-export const roleValidator = v.union(
-  v.literal(ROLES.ADMIN),
-  v.literal(ROLES.USER),
-  v.literal(ROLES.MEMBER),
-);
-export type Role = Infer<typeof roleValidator>;
+import { v } from "convex/values";
 
 const schema = defineSchema(
   {
-    // default auth tables using convex auth.
-    ...authTables, // do not remove or modify
+    ...authTables,
 
-    // the users table is the default users table that is brought in by the authTables
     users: defineTable({
-      name: v.optional(v.string()), // name of the user. do not remove
-      image: v.optional(v.string()), // image of the user. do not remove
-      email: v.optional(v.string()), // email of the user. do not remove
-      emailVerificationTime: v.optional(v.number()), // email verification time. do not remove
-      isAnonymous: v.optional(v.boolean()), // is the user anonymous. do not remove
+      name: v.optional(v.string()),
+      image: v.optional(v.string()),
+      email: v.optional(v.string()),
+      emailVerificationTime: v.optional(v.number()),
+      isAnonymous: v.optional(v.boolean()),
+    }).index("email", ["email"]),
 
-      role: v.optional(roleValidator), // role of the user. do not remove
-    }).index("email", ["email"]), // index for the email. do not remove or modify
+    notes: defineTable({
+      userId: v.id("users"),
+      title: v.string(),
+      rawText: v.string(),
+      summary: v.optional(v.string()),
+      duration: v.optional(v.number()),
+      language: v.optional(v.string()),
+      status: v.union(
+        v.literal("uploaded"),
+        v.literal("transcribing"),
+        v.literal("transcribed"),
+        v.literal("processing"),
+        v.literal("completed"),
+        v.literal("failed"),
+      ),
+      createdAt: v.number(),
+      updatedAt: v.number(),
+    }).index("by_user", ["userId", "createdAt"]),
 
-    // add other tables here
-
-    // tableName: defineTable({
-    //   ...
-    //   // table fields
-    // }).index("by_field", ["field"])
+    tasks: defineTable({
+      userId: v.id("users"),
+      noteId: v.id("notes"),
+      title: v.string(),
+      description: v.optional(v.string()),
+      dueDate: v.optional(v.number()),
+      priority: v.union(
+        v.literal("low"),
+        v.literal("medium"),
+        v.literal("high"),
+        v.literal("urgent"),
+      ),
+      status: v.union(
+        v.literal("pending"),
+        v.literal("in_progress"),
+        v.literal("completed"),
+        v.literal("cancelled"),
+      ),
+      assignee: v.optional(v.string()),
+      person: v.optional(v.string()),
+      project: v.optional(v.string()),
+      confidence: v.optional(v.number()),
+      sourceTimestamp: v.optional(v.number()),
+      createdAt: v.number(),
+      updatedAt: v.number(),
+    })
+      .index("by_user", ["userId", "createdAt"])
+      .index("by_user_priority", ["userId", "priority"])
+      .index("by_user_status", ["userId", "status"]),
   },
   {
     schemaValidation: false,
