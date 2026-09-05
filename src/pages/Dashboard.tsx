@@ -42,6 +42,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 type Priority = "low" | "medium" | "high" | "urgent";
 
@@ -218,6 +219,7 @@ export default function Dashboard() {
             >
               Settings
             </button>
+            <ThemeToggle />
             <Button
               variant="ghost"
               size="icon"

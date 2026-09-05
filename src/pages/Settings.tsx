@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Settings() {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ export default function Settings() {
             <span className="text-sm">Dashboard</span>
           </button>
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <div className="flex size-7 items-center justify-center rounded-lg bg-indigo-600 text-[10px] font-bold text-white">V</div>
             <span className="text-sm font-semibold tracking-tight hidden sm:inline">Voice To Tasks</span>
           </div>

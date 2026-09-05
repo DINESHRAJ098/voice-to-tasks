@@ -17,6 +17,7 @@ import {
   PRIORITY_STYLES,
   statusLabel,
 } from "@/lib/ui-utils";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 type Status = "all" | "pending" | "in_progress" | "completed" | "cancelled";
 type Priority = "all" | "low" | "medium" | "high" | "urgent";
@@ -82,6 +83,7 @@ export default function Tasks() {
             <span className="text-sm">Dashboard</span>
           </button>
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <div className="flex size-7 items-center justify-center rounded-lg bg-indigo-600 text-[10px] font-bold text-white">V</div>
             <span className="text-sm font-semibold tracking-tight hidden sm:inline">Voice To Tasks</span>
           </div>

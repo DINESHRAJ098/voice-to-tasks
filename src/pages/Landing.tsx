@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Mic, Sparkles, ListChecks, Clock, Search, Shield } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useAuth } from "@/hooks/use-auth";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -76,7 +77,8 @@ export default function Landing() {
             <div className="flex size-8 items-center justify-center rounded-lg bg-indigo-600 text-white text-xs font-bold">V</div>
             <span className="text-base font-semibold tracking-tight">Voice To Tasks</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
             <button
               type="button"
               onClick={() => navigate("/auth?returnTo=/dashboard")}

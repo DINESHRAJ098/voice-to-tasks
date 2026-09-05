@@ -5,6 +5,7 @@ import { Search, FileText, ArrowLeft, Clock } from "lucide-react";
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
 import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { relativeTime, summaryLabel } from "@/lib/ui-utils";
 
 export default function Notes() {
@@ -35,6 +36,7 @@ export default function Notes() {
             <span className="text-sm">Dashboard</span>
           </button>
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <div className="flex size-7 items-center justify-center rounded-lg bg-indigo-600 text-[10px] font-bold text-white">V</div>
             <span className="text-sm font-semibold tracking-tight hidden sm:inline">Voice To Tasks</span>
           </div>

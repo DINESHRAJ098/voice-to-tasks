@@ -20,6 +20,7 @@ import {
   PRIORITY_STYLES,
   summaryLabel,
 } from "@/lib/ui-utils";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { useState } from "react";
 
 export default function NoteDetail() {
@@ -87,16 +88,19 @@ export default function NoteDetail() {
             <ArrowLeft className="size-4" />
             <span className="text-sm">Notes</span>
           </button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleDelete}
-            disabled={deleting}
-            className="text-muted-foreground hover:text-red-400 gap-1.5"
-          >
-            <Trash2 className="size-3.5" />
-            Delete
-          </Button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleDelete}
+              disabled={deleting}
+              className="text-muted-foreground hover:text-red-400 gap-1.5"
+            >
+              <Trash2 className="size-3.5" />
+              Delete
+            </Button>
+          </div>
         </div>
       </header>
 
